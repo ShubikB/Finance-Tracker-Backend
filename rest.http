@@ -1,7 +1,9 @@
 @PORT = 5000
-@RootURL = http://localhost:{{PORT}}/api/v1
+@rootURL = http://localhost:{{PORT}}/api/v1
 
-@userEP = {{RootURL}}/users
+@userEP = {{rootURL}}/users
+
+@transactionEP = {{rootURL}}/transaction
 
 ###
 
@@ -21,4 +23,18 @@ Content-Type: application/json
 {
     "email":"email",
     "password":"password"
+}
+
+###
+
+POST {{transactionEP}}
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtYWlsIiwiaWF0IjoxNzM3NDE2NTkwLCJleHAiOjE3Mzc1MDI5OTB9.ahv2ak-EAP92maTrhRqZva6l31WfQ2db57k0h2a2OTo
+
+{
+    "type":"expence",
+    "amount":2000,
+    "date":"20-1-2025",
+    "description":"Academics",
+    "createdate": ""
 }

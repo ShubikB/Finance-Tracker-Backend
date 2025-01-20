@@ -14,6 +14,7 @@ This is the backend service for the Finance Tracker application. It provides API
 - Node.js
 - Express.js
 - MongoDB
+- JWT for Authentication
 - Bcrypt
 - Cors
 - Dotenv
