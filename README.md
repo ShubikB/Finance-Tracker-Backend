@@ -7,13 +7,16 @@ This is the backend service for the Finance Tracker application. It provides API
 - User Signup and Login
 - Financial reports
 - Expense and Income tracking
+- Interactive graphs and charts
 
 ## Technologies Used
 
 - Node.js
 - Express.js
 - MongoDB
-- JWT for authentication
+- Bcrypt
+- Cors
+- Dotenv
 
 ## Getting Started
 
@@ -26,11 +29,11 @@ This is the backend service for the Finance Tracker application. It provides API
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/yourusername/FinanceTracker-be.git
+   git clone https://github.com/ShubikB/Finance-Tracker-Backend.git
    ```
 2. Navigate to the project directory:
    ```sh
-   cd FinanceTracker-be
+   cd FinanceTracker-Backend
    ```
 3. Install dependencies:
    ```sh
@@ -41,7 +44,7 @@ This is the backend service for the Finance Tracker application. It provides API
 
 1. Create a `.env` file in the root directory and add the following environment variables:
    ```env
-   PORT=3000
+   PORT=5000
    MONGODB_URI=mongodb://localhost:27017/finance-tracker
    JWT_SECRET=your_jwt_secret
    ```
@@ -52,7 +55,7 @@ This is the backend service for the Finance Tracker application. It provides API
    ```sh
    npm start
    ```
-2. The server will be running at `http://localhost:3000`.
+2. The server will be running at `http://localhost:5000` by default .
 
 ## API Documentation
 
