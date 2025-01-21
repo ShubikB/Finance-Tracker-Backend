@@ -21,7 +21,7 @@ POST  {{userEP}}/login
 Content-Type: application/json
 
 {
-    "email":"email",
+    "email":"shubik@gmail.com",
     "password":"password"
 }
 
@@ -29,12 +29,14 @@ Content-Type: application/json
 
 POST {{transactionEP}}
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtYWlsIiwiaWF0IjoxNzM3NDE2NTkwLCJleHAiOjE3Mzc1MDI5OTB9.ahv2ak-EAP92maTrhRqZva6l31WfQ2db57k0h2a2OTo
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNodWJpa0BnbWFpbC5jb20iLCJpYXQiOjE3Mzc0MjA5NDEsImV4cCI6MTczNzUwNzM0MX0.OU9NC2f-0V2_Ax9sUk4Yp-30TY3L_0sn7iTVHAt2k7Y
 
 {
-    "type":"expence",
-    "amount":2000,
-    "date":"20-1-2025",
-    "description":"Academics",
-    "createdate": ""
+    "type":"income",
+    "amount":10000,
+    "description":"Salary",
+    "date":"01-21-2025"
 }
+###
+GET {{transactionEP}}
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNodWJpa0BnbWFpbC5jb20iLCJpYXQiOjE3Mzc0MjA5NDEsImV4cCI6MTczNzUwNzM0MX0.OU9NC2f-0V2_Ax9sUk4Yp-30TY3L_0sn7iTVHAt2k7Y

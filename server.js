@@ -10,7 +10,10 @@ dotenv.config()
 connectMongodb()
 
 const app = express()
-const PORT = process.env.PORT || 5050
+const PORT = process.env.PORT || 5000
+
+app.use(express.json())
+app.use(cors())
 
 //
 // -------------------------User Schema and Model
@@ -71,8 +74,9 @@ const transactionSchema = mongoose.Schema(
 )
 const Transaction = mongoose.model("Transaction", transactionSchema)
 
-app.use(express.json())
-app.use(cors())
+//
+// ------------------------------------Home
+//
 
 app.get("/", (req, res) => {
   res.json({
@@ -160,16 +164,97 @@ app.post("/api/v1/users/login", async (req, res) => {
 //
 // ---------------------------------TO create a transaction
 //
+
 app.post("/api/v1/transaction", async (req, res) => {
   try {
-    res.status(200).json({
-      status: "Scuuess",
-      message: "transaction added",
-    })
+    // 1.authorizaton
+    const token = req.headers.authorization
+
+    // 2.verification
+    const decodedData = await jwt.verify(token, process.env.JWT_SECRET)
+
+    if (decodedData?.email) {
+      console.log("3 done")
+      const userData = await User.findOne({ email: decodedData.email })
+      console.log(userData)
+
+      if (userData) {
+        const { type, amount, description, date } = req.body
+
+        const newTransaction = new Transaction({
+          userID: userData._id,
+          type,
+          amount,
+          description,
+          date,
+        })
+
+        const newData = await newTransaction.save()
+        res.status(200).json({
+          status: "Scuuess",
+          message: "transaction added",
+          transactionDetails: newData,
+        })
+      } else {
+        res.sendStatus(404).json({
+          status: "error",
+          message: "user not Found",
+        })
+      }
+    } else {
+      res.sendStatus(401).json({
+        status: "error",
+        message: "Unmatched Credentials",
+      })
+    }
   } catch (error) {
+    console.log(error)
     res.status(500).json({
       status: "Error",
-      message: "Something went wrong",
+      message: error.message,
+    })
+  }
+})
+
+//
+// --------------------------------Read user's all transactions
+//
+
+app.get("/api/v1/transaction", async (req, res) => {
+  try {
+    const token = req.headers.authorization
+
+    const decodedData = await jwt.verify(token, process.env.JWT_SECRET)
+
+    if (decodedData?.email) {
+      const userData = await User.findOne({ email: decodedData.email })
+
+      if (userData) {
+        const transactionData = await Transaction.find({
+          userID: userData._id,
+        })
+        res.status(200).json({
+          status: "success",
+          message: "Data Recieved Succesfully",
+          transactions: transactionData,
+        })
+      } else {
+        res.status(404).json({
+          status: "Error",
+          message: "User Not Found",
+        })
+      }
+    } else {
+      res.status(401).json({
+        status: "Error",
+        message: "Unmatched Credentials",
+      })
+    }
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({
+      status: "Error",
+      message: error.message,
     })
   }
 })
