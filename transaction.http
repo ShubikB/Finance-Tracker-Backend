@@ -1,0 +1,38 @@
+@PORT = 5000
+
+@transactionEP = http://localhost:{{PORT}}/api/v1/transaction
+
+
+# Create Transaction API
+POST {{transactionEP}}
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNodWJpa0BnbWFpbC5jb20iLCJpYXQiOjE3MzgwMjA0MDksImV4cCI6MTczODEwNjgwOX0.cvGBzzTW6uEq3-T0roi3YNq4NVJlri1-2p5kirjnAKM
+
+{
+    "type":"expense",
+    "amount":1500,
+    "description":"shopping",
+    "date":"01-21-2025"
+}
+
+###
+# Read user's Transaction API
+GET {{transactionEP}}
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNodWJpa0BnbWFpbC5jb20iLCJpYXQiOjE3MzgwMjA0MDksImV4cCI6MTczODEwNjgwOX0.cvGBzzTW6uEq3-T0roi3YNq4NVJlri1-2p5kirjnAKM
+
+###
+# Delete A Transaction
+DELETE {{transactionEP}}/67982e04f4451ce0724d1ac8
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNodWJpa0BnbWFpbC5jb20iLCJpYXQiOjE3MzgwMjYwMzksImV4cCI6MTczODExMjQzOX0.yzaBfTjNDqef452JTiWaPLXsP0s1wzJKXle255_sffo
+###
+# Delete Multiple Transactions
+DELETE {{transactionEP}}
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNodWJpa0BnbWFpbC5jb20iLCJpYXQiOjE3MzgwMjA0MDksImV4cCI6MTczODEwNjgwOX0.cvGBzzTW6uEq3-T0roi3YNq4NVJlri1-2p5kirjnAKM
+
+{
+"transactions":[
+    "67982e04f4451ce0724d1ac5",
+    "67982e05f4451ce0724d1acb"
+    ]
+}
