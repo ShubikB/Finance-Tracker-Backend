@@ -1,5 +1,6 @@
 import express from "express"
-import { authenticate } from "../authenticate.js"
+import { authenticate } from "../middleware/authenticate.js"
+import errorHandler from "../middleware/errorHandler.js"
 import {
   getTransaction,
   deleteTransactions,
@@ -7,7 +8,7 @@ import {
 } from "../models/transaction/transactionModel.js"
 const router = express.Router()
 
-router.post("/", authenticate, async (req, res) => {
+router.post("/", authenticate, async (req, res, next) => {
   try {
     const { type, amount, description, date } = req.body
 
@@ -25,15 +26,11 @@ router.post("/", authenticate, async (req, res) => {
       transactionDetails: newTransaction,
     })
   } catch (error) {
-    console.log(error)
-    res.status(500).json({
-      status: "Error",
-      message: error.message,
-    })
+    next(error)
   }
 })
 
-router.get("/", authenticate, async (req, res) => {
+router.get("/", authenticate, async (req, res, next) => {
   try {
     const transactionData = await getTransaction({ userID: req.user._id })
     res.status(200).json({
@@ -42,15 +39,11 @@ router.get("/", authenticate, async (req, res) => {
       transactions: transactionData,
     })
   } catch (error) {
-    console.log(error)
-    res.status(500).json({
-      status: "Error",
-      message: error.message,
-    })
+    next(error)
   }
 })
 
-router.delete("/:id", authenticate, async (req, res) => {
+router.delete("/:id", authenticate, async (req, res, next) => {
   try {
     const transactionId = req.params.id
 
@@ -73,15 +66,11 @@ router.delete("/:id", authenticate, async (req, res) => {
       })
     }
   } catch (error) {
-    console.log(error)
-    res.status(500).json({
-      status: "Error",
-      message: error.message,
-    })
+    next(error)
   }
 })
 
-router.delete("/", authenticate, async (req, res) => {
+router.delete("/", authenticate, async (req, res, next) => {
   try {
     const { transactions } = req.body
     const result = await deleteTransactions({
@@ -101,12 +90,10 @@ router.delete("/", authenticate, async (req, res) => {
       })
     }
   } catch (error) {
-    console.log(error)
-    res.status(500).json({
-      status: "Error",
-      message: error.message,
-    })
+    next(error)
   }
 })
+
+router.use(errorHandler)
 
 export default router

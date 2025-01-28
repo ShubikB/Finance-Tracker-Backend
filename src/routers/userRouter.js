@@ -1,15 +1,16 @@
 import express from "express"
-import bcrypt from "bcrypt"
-import jwt from "jsonwebtoken"
 import { getUserByEmail, createUser } from "../models/user/userModel.js"
+import { encryptText, compareEncryptText } from "../utils/bcrypt.js"
+import { JWTsign } from "../utils/jwt.js"
+import errorHandler from "../middleware/errorHandler.js"
 const router = express.Router()
 
-router.post("/signup", async (req, res) => {
+router.post("/signup", async (req, res, next) => {
   try {
     const { username, email } = req.body
     let { password } = req.body
     const saltround = 10
-    password = await bcrypt.hash(password, saltround)
+    password = await encryptText(password)
 
     await createUser({
       username,
@@ -22,29 +23,24 @@ router.post("/signup", async (req, res) => {
       message: "user created Succesfully",
     })
   } catch (error) {
-    res.status(400).json({
-      status: "Credentials unmatched",
-      message: error.message,
-    })
+    next(error)
   }
 })
 
-router.post("/login", async (req, res) => {
+router.post("/login", async (req, res, next) => {
   try {
     const { email, password } = req.body
     const userData = await getUserByEmail(email)
 
     if (userData) {
       console.log(userData)
-      const isLoginSuccess = await bcrypt.compare(password, userData.password)
+      const isLoginSuccess = await compareEncryptText(password, userData.password)
 
-      const tokendata = {
+      const tokenData = {
         email: userData.email,
       }
 
-      const token = await jwt.sign(tokendata, process.env.JWT_SECRET, {
-        expiresIn: process.env.JWT_EXPIRESIN,
-      })
+      const token = await JWTsign(tokenData)
 
       if (isLoginSuccess) {
         res.status(200).json({
@@ -65,12 +61,10 @@ router.post("/login", async (req, res) => {
       })
     }
   } catch (error) {
-    console.log(error)
-    res.status(500).json({
-      status: "Error",
-      message: "Internal Server Error",
-    })
+    next(error)
   }
 })
+
+router.use(errorHandler)
 
 export default router

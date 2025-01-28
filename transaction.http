@@ -6,24 +6,27 @@
 # Create Transaction API
 POST {{transactionEP}}
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNodWJpa0BnbWFpbC5jb20iLCJpYXQiOjE3MzgwMjA0MDksImV4cCI6MTczODEwNjgwOX0.cvGBzzTW6uEq3-T0roi3YNq4NVJlri1-2p5kirjnAKM
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIxQGdtYWlsLmNvbSIsImlhdCI6MTczODA0MTc3MywiZXhwIjoxNzM4MTI4MTczfQ.kSgDadm-iOzedUA44gDi2nOkX-gO0Xg_0LhZ1BsLHzg
 
 {
-    "type":"expense",
+    "type":"income",
     "amount":1500,
-    "description":"shopping",
+    "description":"Vehicle renting",
     "date":"01-21-2025"
 }
 
 ###
 # Read user's Transaction API
 GET {{transactionEP}}
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNodWJpa0BnbWFpbC5jb20iLCJpYXQiOjE3MzgwMjA0MDksImV4cCI6MTczODEwNjgwOX0.cvGBzzTW6uEq3-T0roi3YNq4NVJlri1-2p5kirjnAKM
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIxQGdtYWlsLmNvbSIsImlhdCI6MTczODA0MTc3MywiZXhwIjoxNzM4MTI4MTczfQ.kSgDadm-iOzedUA44gDi2nOkX-gO0Xg_0LhZ1BsLHzg
+
 
 ###
 # Delete A Transaction
-DELETE {{transactionEP}}/67982e04f4451ce0724d1ac8
+DELETE {{transactionEP}}/67986bb05fe5aba12edafe6e
 Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNodWJpa0BnbWFpbC5jb20iLCJpYXQiOjE3MzgwMjYwMzksImV4cCI6MTczODExMjQzOX0.yzaBfTjNDqef452JTiWaPLXsP0s1wzJKXle255_sffo
+
+
 ###
 # Delete Multiple Transactions
 DELETE {{transactionEP}}
@@ -32,7 +35,7 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNodWJpa0BnbWFp
 
 {
 "transactions":[
-    "67982e04f4451ce0724d1ac5",
-    "67982e05f4451ce0724d1acb"
+    "67986c965fe5aba12edafe7b",
+    "67986c965fe5aba12edafe78"
     ]
 }

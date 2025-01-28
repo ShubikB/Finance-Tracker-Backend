@@ -1,6 +1,3 @@
-//
-// --------------------------Transaction Schema and Model
-//
 import mongoose from "mongoose"
 
 const transactionSchema = mongoose.Schema(
@@ -32,4 +29,5 @@ const transactionSchema = mongoose.Schema(
     timestamps: true,
   }
 )
+
 export default mongoose.model("Transaction", transactionSchema)

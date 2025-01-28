@@ -1,15 +1,17 @@
 import jwt from "jsonwebtoken"
-import { getUserByEmail } from "./models/user/userModel.js"
+import { getUserByEmail } from "../models/user/userModel.js"
+import { JWTsign, JWTverify } from "../utils/jwt.js"
 
 export const authenticate = async (req, res, next) => {
   try {
     // get token
     const token = req.headers.authorization
+    console.log("ACCESS TOKEN", token)
     // VERIFY TOKEN
-    const decodedData = await jwt.verify(token, process.env.JWT_SECRET)
+    const decodedData = await JWTverify(token)
+    console.log("JWT VERIFIED DATA", decodedData)
 
     if (decodedData?.email) {
-      // find the user
       const userData = await getUserByEmail(decodedData.email)
 
       if (userData) {

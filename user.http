@@ -9,8 +9,8 @@ POST {{userEP}}/signup
 Content-Type: application/json
 
 {
-    "username":"jack",
-    "email":"jack@gmail.com",
+    "username":"user1",
+    "email":"user1@gmail.com",
     "password":"password"
 }
 
@@ -20,6 +20,6 @@ POST  {{userEP}}/login
 Content-Type: application/json
 
 {
-    "email":"shubik@gmail.com",
+    "email":"user1@gmail.com",
     "password":"password"
 }

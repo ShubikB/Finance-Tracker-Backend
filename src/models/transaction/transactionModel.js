@@ -10,3 +10,7 @@ export const getTransaction = (filter) => {
 export const deleteTransactions = (filter) => {
   return transactionModel.deleteMany(filter)
 }
+
+export const updateTransaction = (filter) => {
+  return transactionModel.findOneAndMany({ _id }, updatedTransactionObj)
+}
